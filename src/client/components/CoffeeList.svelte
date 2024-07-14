@@ -3,6 +3,8 @@
   import Card from './Card.svelte';
   import * as API from '$api';
 
+  const INACTIVITY_TIME = 1000 * 30;
+
   interface CoffeeCard {
     blendName: string;
     origin: string;
@@ -15,6 +17,7 @@
 
   let cards: CoffeeCard[] = [];
   let loading = false;
+  let timer: number;
 
   async function loadCard() {
     loading = true;
@@ -50,7 +53,31 @@
     loading = false;
   }
 
-  onMount(loadCard);
+  function resetTimer() {
+    clearInterval(timer);
+    timer = setInterval(() => {
+      loadCard();
+    }, INACTIVITY_TIME) as number;
+  }
+
+  onMount(() => {
+    loadCard();
+
+    timer = setInterval(() => {
+      loadCard();
+    }, INACTIVITY_TIME) as number;
+
+    window.addEventListener('mousemove', resetTimer);
+    window.addEventListener('click', resetTimer);
+    window.addEventListener('keydown', resetTimer);
+
+    return () => {
+      clearInterval(timer);
+      window.removeEventListener('mousemove', resetTimer);
+      window.removeEventListener('click', resetTimer);
+      window.removeEventListener('keydown', resetTimer);
+    };
+  });
 </script>
 
 <div>
