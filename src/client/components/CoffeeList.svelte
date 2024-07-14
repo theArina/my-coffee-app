@@ -34,8 +34,8 @@
       loadImage(cards.length - 1);
     } catch (error) {
       console.error('Error loading card:', error);
+      loading = false;
     }
-    loading = false;
   }
 
   async function loadImage(cardIndex) {
@@ -47,6 +47,7 @@
       console.error('Error loading image:', error);
       cards[cardIndex].imageStatus = `Couldn't load "${cards[cardIndex].blendName}" image:(`;
     }
+    loading = false;
   }
 
   onMount(loadCard);
