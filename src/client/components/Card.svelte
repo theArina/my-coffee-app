@@ -4,11 +4,12 @@
   export let variety: string;
   export let notes: string[];
   export let intensifier: string;
-  export let image: string;
+  export let image: string = undefined;
+  export let imageStatus: string;
 </script>
 
 <div class="card">
-  <img src={image} alt={blendName} class="card-img" />
+  <img src={image} alt={imageStatus} class="card-img"/>
   <h2>{blendName}</h2>
   <p><strong>Origin:</strong> {origin}</p>
   <p><strong>Variety:</strong> {variety}</p>

@@ -8,7 +8,8 @@
     variety: string;
     notes: string[];
     intensifier: string;
-    image: string;
+    imageStatus: string;
+    image?: string;
   }
 
   let cards: CoffeeCard[] = [];
@@ -20,9 +21,6 @@
       const resCoffee = await fetch('http://localhost:3000/api/coffee');
       if (!resCoffee.ok) throw new Error('Failed to fetch coffee data');
       const coffee = await resCoffee.json();
-      const resImage = await fetch('http://localhost:3000/api/image');
-      if (!resImage.ok) throw new Error('Failed to fetch image data');
-      const image = await resImage.json();
       cards = [
         ...cards,
         {
@@ -31,23 +29,37 @@
           variety: coffee.variety,
           intensifier: coffee.intensifier,
           notes: coffee.notes.split(', '),
-          image: image.file,
+          imageStatus: `Loading "${coffee.blend_name}" image...`,
         },
       ];
+      loadImage(cards.length - 1);
     } catch (error) {
       console.error('Error loading card:', error);
     }
     loading = false;
   }
 
+  async function loadImage(cardIndex) {
+    try {
+      const resImage = await fetch('http://localhost:3000/api/image');
+      if (!resImage.ok) throw new Error('Failed to fetch image data');
+      const image = await resImage.json();
+      cards[cardIndex].image = image.file;
+      cards[cardIndex].imageStatus = `"${cards[cardIndex].blendName}" image`;
+    } catch (error) {
+      console.error('Error loading image:', error);
+      cards[cardIndex].imageStatus = `Couldn't load "${cards[cardIndex].blendName}" image:(`;
+    }
+  }
+
   onMount(loadCard);
 </script>
 
 <div>
-  {#each cards as card}
-    <Card {...card} />
-  {/each}
-  <button on:click={loadCard} disabled={loading}>
-    {loading ? 'Loading...' : 'Load More'}
-  </button>
+    {#each cards as card}
+        <Card {...card}/>
+    {/each}
+    <button on:click={loadCard} disabled={loading}>
+        {loading ? 'Loading...' : 'Load More'}
+    </button>
 </div>
