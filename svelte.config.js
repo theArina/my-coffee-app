@@ -19,6 +19,7 @@ const config = {
     alias: {
       $components: 'src/client/components',
       $styles: 'src/client/styles',
+      $api: 'src/client/api',
     },
   },
 };

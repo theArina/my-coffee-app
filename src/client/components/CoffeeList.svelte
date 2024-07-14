@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import Card from './Card.svelte';
+  import * as API from '$api';
 
   interface CoffeeCard {
     blendName: string;
@@ -18,9 +19,7 @@
   async function loadCard() {
     loading = true;
     try {
-      const resCoffee = await fetch('http://localhost:3000/api/coffee');
-      if (!resCoffee.ok) throw new Error('Failed to fetch coffee data');
-      const coffee = await resCoffee.json();
+      const coffee = await API.getCoffee();
       cards = [
         ...cards,
         {
@@ -41,9 +40,7 @@
 
   async function loadImage(cardIndex) {
     try {
-      const resImage = await fetch('http://localhost:3000/api/image');
-      if (!resImage.ok) throw new Error('Failed to fetch image data');
-      const image = await resImage.json();
+      const image = await API.getImage();
       cards[cardIndex].image = image.file;
       cards[cardIndex].imageStatus = `"${cards[cardIndex].blendName}" image`;
     } catch (error) {
