@@ -1,9 +1,9 @@
 export function createCache<T>(callback: () => Promise<T>): () => Promise<T> {
-  let cachedPromise: Promise<unknown> | null = null;
+  let cachedPromise: Promise<T> | null = null;
 
   return async function getCached(): Promise<T> {
     if (cachedPromise) {
-      return cachedPromise as Promise<T>;
+      return cachedPromise
     }
 
     cachedPromise = callback()
@@ -14,6 +14,6 @@ export function createCache<T>(callback: () => Promise<T>): () => Promise<T> {
         cachedPromise = null;
       });
 
-    return cachedPromise as Promise<T>;
+    return cachedPromise
   };
 }
