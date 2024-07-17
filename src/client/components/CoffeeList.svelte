@@ -17,12 +17,13 @@
 
   let cards: CoffeeCard[] = [];
   let loading = false;
+  let isFirstCardOnPage = true;
   let timer: number;
 
   async function loadCard() {
     loading = true;
     try {
-      const coffee = await API.getCoffee();
+      const coffee = await API.getCoffee(isFirstCardOnPage);
       cards = [
         ...cards,
         {
@@ -43,7 +44,7 @@
 
   async function loadImage(cardIndex) {
     try {
-      const image = await API.getImage();
+      const image = await API.getImage(isFirstCardOnPage);
       cards[cardIndex].image = image.file;
       cards[cardIndex].imageStatus = `"${cards[cardIndex].blendName}" image`;
     } catch (error) {
@@ -51,6 +52,7 @@
       cards[cardIndex].imageStatus = `Couldn't load "${cards[cardIndex].blendName}" image:(`;
     }
     loading = false;
+    isFirstCardOnPage = false;
   }
 
   function resetTimer() {

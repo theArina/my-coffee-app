@@ -1,4 +1,4 @@
-import type { Coffee, Image } from '../types.ts';
+import type { Coffee, Image } from '../../types.ts';
 import { createCache } from './cache.ts';
 import handleFetch from './fetchHelper.ts';
 

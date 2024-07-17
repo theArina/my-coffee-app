@@ -6,7 +6,8 @@ const router = Router();
 
 router.get('/coffee', async (req, res, next) => {
   try {
-    const data = await getRandomCoffee();
+    const useLastValue = req.query.isFirst === 'true';
+    const data = await getRandomCoffee(useLastValue);
     res.json(data);
   } catch (error) {
     next(error);
@@ -15,7 +16,8 @@ router.get('/coffee', async (req, res, next) => {
 
 router.get('/image', async (req, res, next) => {
   try {
-    const data = await getRandomImage();
+    const useLastValue = req.query.isFirst === 'true';
+    const data = await getRandomImage(useLastValue);
     res.json(data);
   } catch (error) {
     next(error);
