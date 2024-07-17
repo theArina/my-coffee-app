@@ -37,7 +37,7 @@
       ];
       loadImage(cards.length - 1);
     } catch (error) {
-      console.error('Error loading card:', error);
+      console.error('Failed to fetch coffee data:', error);
       loading = false;
     }
   }
@@ -48,8 +48,9 @@
       cards[cardIndex].image = image.file;
       cards[cardIndex].imageStatus = `"${cards[cardIndex].blendName}" image`;
     } catch (error) {
-      console.error('Error loading image:', error);
-      cards[cardIndex].imageStatus = `Couldn't load "${cards[cardIndex].blendName}" image:(`;
+      console.error('Failed to fetch image data:', error);
+      cards[cardIndex].imageStatus =
+        `Couldn't load "${cards[cardIndex].blendName}" image:(`;
     }
     loading = false;
     isFirstCardOnPage = false;
@@ -83,10 +84,10 @@
 </script>
 
 <div>
-    {#each cards as card}
-        <Card {...card}/>
-    {/each}
-    <button on:click={loadCard} disabled={loading}>
-        {loading ? 'Loading...' : 'Load More'}
-    </button>
+  {#each cards as card}
+    <Card {...card} />
+  {/each}
+  <button on:click={loadCard} disabled={loading}>
+    {loading ? 'Loading...' : 'Load More'}
+  </button>
 </div>

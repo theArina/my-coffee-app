@@ -9,7 +9,7 @@
 </script>
 
 <div class="card">
-  <img src={image} alt={imageStatus} class="card-img"/>
+  <img src={image} alt={imageStatus} class="card-img" />
   <h2>{blendName}</h2>
   <p><strong>Origin:</strong> {origin}</p>
   <p><strong>Variety:</strong> {variety}</p>
