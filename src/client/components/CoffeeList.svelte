@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import Card from './Card.svelte';
+  import Alert from './Alert.svelte';
   import * as API from '$api';
 
   const INACTIVITY_TIME = 1000 * 30;
@@ -19,9 +20,11 @@
   let loading = false;
   let isFirstCardOnPage = true;
   let timer: number;
+  let error: string | null = null;
 
   async function loadCard() {
     loading = true;
+    clearError();
     try {
       const coffee = await API.getCoffee(isFirstCardOnPage);
       cards = [
@@ -36,9 +39,10 @@
         },
       ];
       loadImage(cards.length - 1);
-    } catch (error) {
-      console.error('Failed to fetch coffee data:', error);
+    } catch (e) {
+      console.error('Failed to fetch coffee data:', e);
       loading = false;
+      error = e.message;
     }
   }
 
@@ -47,13 +51,14 @@
       const image = await API.getImage(isFirstCardOnPage);
       cards[cardIndex].image = image.file;
       cards[cardIndex].imageStatus = `"${cards[cardIndex].blendName}" image`;
-    } catch (error) {
-      console.error('Failed to fetch image data:', error);
+    } catch (e) {
+      console.error('Failed to fetch image data:', e);
       cards[cardIndex].imageStatus =
         `Couldn't load "${cards[cardIndex].blendName}" image:(`;
+    } finally {
+      loading = false;
+      isFirstCardOnPage = false;
     }
-    loading = false;
-    isFirstCardOnPage = false;
   }
 
   function resetTimer() {
@@ -61,6 +66,10 @@
     timer = setInterval(() => {
       loadCard();
     }, INACTIVITY_TIME) as number;
+  }
+
+  function clearError() {
+    error = null;
   }
 
   onMount(() => {
@@ -87,7 +96,15 @@
   {#each cards as card}
     <Card {...card} />
   {/each}
-  <button on:click={loadCard} disabled={loading} class="load-more-button" class:loading={loading}>
+  <button
+    on:click={loadCard}
+    disabled={loading}
+    class="load-more-button"
+    class:loading
+  >
     {loading ? 'Loading...' : 'Load More'}
   </button>
+  {#if error}
+    <Alert message={error} on:close={clearError} />
+  {/if}
 </div>
