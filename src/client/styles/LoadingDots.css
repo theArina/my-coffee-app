@@ -1,0 +1,39 @@
+.dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+}
+
+.dot {
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  margin: 0 5px;
+  animation: shimmer 1.5s infinite;
+}
+
+.dot:nth-child(1) {
+  background-color: #6f4e37;
+  animation-delay: 0s;
+}
+
+.dot:nth-child(2) {
+  background-color: #c0a16b;
+  animation-delay: 0.3s;
+}
+
+.dot:nth-child(3) {
+  background-color: #d2b48c;
+  animation-delay: 0.6s;
+}
+
+@keyframes shimmer {
+  0%,
+  100% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 1;
+  }
+}

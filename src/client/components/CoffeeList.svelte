@@ -3,6 +3,7 @@
   import { onMount } from 'svelte';
   import Card from './Card.svelte';
   import Alert from './Alert.svelte';
+  import LoadingDots from './LoadingDots.svelte';
   import * as API from '$api';
 
   const INACTIVITY_TIME = 1000 * 30;
@@ -97,14 +98,11 @@
   {#each cards as card}
     <Card {...card} />
   {/each}
-  <button
-    on:click={loadCard}
-    disabled={loading}
-    class="load-more-button"
-    class:loading
-  >
-    {loading ? 'Loading...' : 'Load More'}
-  </button>
+  {#if loading || cards.length === 0}
+    <LoadingDots />
+  {:else}
+    <button on:click={loadCard} class="load-more-button"> Load More </button>
+  {/if}
   {#if error}
     <Alert message={error} on:close={clearError} />
   {/if}
