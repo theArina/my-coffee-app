@@ -87,7 +87,7 @@
   {#each cards as card}
     <Card {...card} />
   {/each}
-  <button on:click={loadCard} disabled={loading}>
+  <button on:click={loadCard} disabled={loading} class="load-more-button" class:loading={loading}>
     {loading ? 'Loading...' : 'Load More'}
   </button>
 </div>
