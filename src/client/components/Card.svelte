@@ -1,4 +1,6 @@
 <script lang="ts">
+  import '$styles/Card.css';
+
   export let blendName: string;
   export let origin: string;
   export let variety: string;

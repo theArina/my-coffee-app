@@ -1,4 +1,5 @@
 <script lang="ts">
+  import '$styles/CoffeeList.css';
   import { onMount } from 'svelte';
   import Card from './Card.svelte';
   import Alert from './Alert.svelte';
