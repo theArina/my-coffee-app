@@ -5,7 +5,7 @@
 </script>
 
 <div class="dots">
-  {#each dots as _, index}
+  {#each dots as _}
     <div class="dot"></div>
   {/each}
 </div>
