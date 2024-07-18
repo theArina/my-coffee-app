@@ -11,14 +11,20 @@
 </script>
 
 <div class="card">
-  <img src={image} alt={imageStatus} class="card-img" />
-  <h2>{blendName}</h2>
-  <p><strong>Origin:</strong> {origin}</p>
-  <p><strong>Variety:</strong> {variety}</p>
-  <p><strong>Intensifier:</strong> {intensifier}</p>
-  <div class="notes">
-    {#each notes as note}
-      <span class="note">{note}</span>
-    {/each}
+  <div class="image-container">
+    <img src={image} alt={imageStatus} class="card-img" />
+    {#if image}
+      <div class="intensifier">{intensifier}</div>
+    {/if}
+  </div>
+  <div class="card-content">
+    <h2>{blendName}</h2>
+    <p><strong>Origin:</strong> {origin}</p>
+    <p><strong>Variety:</strong> {variety}</p>
+    <div class="notes">
+      {#each notes as note}
+        <span class="note">{note}</span>
+      {/each}
+    </div>
   </div>
 </div>

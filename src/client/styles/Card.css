@@ -6,11 +6,43 @@
   max-width: 300px;
 }
 
+.image-container {
+  position: relative;
+  width: 100%;
+}
+
 .card-img {
   width: 100%;
   height: auto;
   display: block;
   margin-bottom: 16px;
+}
+
+.intensifier {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #fff;
+  text-shadow:
+    0 0 5px rgba(0, 0, 0, 0.7),
+    0 0 10px rgba(0, 0, 0, 0.7);
+  font-size: 1.2em;
+  /*font-family: 'Lora', serif;*/
+}
+
+.card-content h2 {
+  margin: 0 0 10px;
+  font-size: 1.25em;
+  color: #333;
+}
+
+.card-content p {
+  margin: 10px 0;
+  color: #555;
+}
+
+.card-content strong {
+  color: #333;
 }
 
 .notes {

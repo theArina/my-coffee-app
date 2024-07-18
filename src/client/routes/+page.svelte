@@ -4,6 +4,5 @@
 </script>
 
 <main>
-  <h1>Welcome to the Coffee App</h1>
   <CoffeeList />
 </main>
