@@ -9,13 +9,14 @@
 .image-container {
   position: relative;
   width: 100%;
+  min-height: 300px;
+  margin-bottom: 16px;
 }
 
 .card-img {
   width: 100%;
   height: auto;
   display: block;
-  margin-bottom: 16px;
 }
 
 .intensifier {
